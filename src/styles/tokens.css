@@ -1,0 +1,23 @@
+:root {
+  /* 메인: 버튼, 선택, 진행 상태 */
+  --color-main: #5b6cff;
+  --color-main-deep: #3f4ed0;
+  /* 서브: 보조 강조, 검토 상태 */
+  --color-sub: #7c6bf2;
+  /* 포인트: 완료와 긍정 */
+  --color-mint: #2fbf8f;
+  --color-coral: #f08a6a;
+  --color-amber: #e2a43a;
+  /* 베이스: 배경, 글자, 카드 */
+  --color-ink: #1d2433;
+  --color-ink-soft: #5e6b82;
+  --color-line: rgba(255, 255, 255, 0.72);
+  --surface: rgba(255, 255, 255, 0.8);
+  --surface-strong: rgba(255, 255, 255, 0.9);
+  --shadow: 0 14px 34px rgba(86, 98, 158, 0.1);
+  --radius-lg: 22px;
+  --radius-md: 14px;
+  --font: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo",
+    "Noto Sans KR", "Malgun Gothic", sans-serif;
+  --sidebar: 252px;
+}

@@ -1,0 +1,57 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(45, 54, 92, 0.28);
+  backdrop-filter: blur(8px);
+}
+
+.dialog {
+  width: min(480px, 100%);
+  padding: 22px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 24px 60px rgba(50, 60, 110, 0.18);
+  backdrop-filter: blur(22px);
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 20px;
+  letter-spacing: -0.03em;
+}
+
+.description {
+  margin-top: 4px;
+  color: var(--color-ink-soft);
+  font-size: 13px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dialog {
+    animation: rise 0.18s ease;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

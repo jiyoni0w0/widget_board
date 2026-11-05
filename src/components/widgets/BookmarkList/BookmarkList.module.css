@@ -1,0 +1,50 @@
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 14px;
+}
+
+.item:hover {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.tile {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(91, 108, 255, 0.1);
+  color: var(--color-main-deep);
+  flex: none;
+}
+
+.body {
+  min-width: 0;
+  flex: 1;
+}
+
+.name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.source {
+  margin-top: 2px;
+  color: var(--color-ink-soft);
+  font-size: 12px;
+}

@@ -1,0 +1,71 @@
+@import "./tokens.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-ink);
+  background-color: #e7edff;
+  background-image:
+    radial-gradient(ellipse 70% 48% at 0% -8%, rgba(124, 107, 242, 0.34), transparent 58%),
+    radial-gradient(ellipse 56% 42% at 100% 0%, rgba(91, 108, 255, 0.32), transparent 52%),
+    radial-gradient(ellipse 46% 36% at 88% 100%, rgba(47, 191, 143, 0.18), transparent 50%),
+    radial-gradient(ellipse 36% 28% at 8% 100%, rgba(240, 138, 106, 0.14), transparent 48%),
+    linear-gradient(180deg, #eef2ff 0%, #f6f4ff 46%, #eef5fb 100%);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+::selection {
+  background: rgba(91, 108, 255, 0.18);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-main);
+  outline-offset: 2px;
+}
+
+.empty-copy {
+  margin: 4px 0 8px;
+  padding: 18px 8px;
+  text-align: center;
+  color: var(--color-ink-soft);
+  font-size: 13px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

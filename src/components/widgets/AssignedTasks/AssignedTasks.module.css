@@ -1,0 +1,64 @@
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  gap: 10px;
+  align-items: center;
+  padding: 8px;
+  border-radius: 14px;
+}
+
+.item:hover {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.check {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1.5px solid rgba(91, 108, 255, 0.35);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.8);
+  color: white;
+  cursor: pointer;
+}
+
+.checked {
+  background: var(--color-main);
+  border-color: transparent;
+}
+
+.name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.done {
+  color: var(--color-ink-soft);
+  text-decoration: line-through;
+}
+
+.due {
+  color: var(--color-ink-soft);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 520px) {
+  .due {
+    display: none;
+  }
+}

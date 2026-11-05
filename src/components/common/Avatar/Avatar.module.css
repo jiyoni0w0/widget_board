@@ -1,0 +1,35 @@
+.avatar {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 700;
+  flex: none;
+}
+
+.main {
+  background: #e7eaff;
+  color: #3d4db8;
+}
+
+.sub {
+  background: #efeaff;
+  color: #6a56c2;
+}
+
+.mint {
+  background: #e3f7f0;
+  color: #1c8f6c;
+}
+
+.coral {
+  background: #ffeee8;
+  color: #c85b3c;
+}
+
+.amber {
+  background: #fff3d8;
+  color: #a67412;
+}

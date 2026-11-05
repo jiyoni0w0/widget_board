@@ -1,0 +1,35 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.main {
+  background: rgba(91, 108, 255, 0.12);
+  color: var(--color-main-deep);
+}
+
+.sub {
+  background: rgba(124, 107, 242, 0.14);
+  color: #654cc4;
+}
+
+.mint {
+  background: rgba(47, 191, 143, 0.16);
+  color: #0f8d62;
+}
+
+.amber {
+  background: rgba(226, 164, 58, 0.2);
+  color: #9a6b0b;
+}
+
+.coral {
+  background: rgba(240, 138, 106, 0.18);
+  color: #c45b3a;
+}

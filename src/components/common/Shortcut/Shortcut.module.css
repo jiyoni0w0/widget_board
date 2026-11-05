@@ -1,0 +1,67 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 76px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  flex: none;
+}
+
+.icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 8px 16px rgba(86, 98, 158, 0.08);
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-ink-soft);
+  letter-spacing: -0.02em;
+}
+
+.main {
+  color: var(--color-main-deep);
+  background: rgba(231, 234, 255, 0.92);
+}
+
+.sub {
+  color: #6a56c2;
+  background: rgba(239, 234, 255, 0.92);
+}
+
+.mint {
+  color: #1c8f6c;
+  background: rgba(227, 247, 240, 0.92);
+}
+
+.coral {
+  color: #c85b3c;
+  background: rgba(255, 238, 232, 0.92);
+}
+
+.amber {
+  color: #a67412;
+  background: rgba(255, 243, 216, 0.95);
+}
+
+.pressed .icon {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 0 0 3px rgba(91, 108, 255, 0.22);
+}
+
+.pressed .label {
+  color: var(--color-main-deep);
+}
