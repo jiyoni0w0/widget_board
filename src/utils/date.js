@@ -7,6 +7,14 @@ export function formatKoreanDate(date) {
   }).format(date)
 }
 
+export function formatKoreanDateShort(date) {
+  return new Intl.DateTimeFormat("ko-KR", {
+    month: "long",
+    day: "numeric",
+    weekday: "long",
+  }).format(date)
+}
+
 export function formatMonthTitle(date) {
   return new Intl.DateTimeFormat("ko-KR", {
     year: "numeric",

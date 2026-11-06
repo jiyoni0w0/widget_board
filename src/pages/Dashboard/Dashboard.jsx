@@ -6,6 +6,7 @@ import Modal from "../../components/common/Modal/Modal.jsx"
 import WidgetBox from "../../components/common/WidgetBox/WidgetBox.jsx"
 import DashboardHeader from "../../components/layout/DashboardHeader/DashboardHeader.jsx"
 import Sidebar from "../../components/layout/Sidebar/Sidebar.jsx"
+import StatusBar from "../../components/layout/StatusBar/StatusBar.jsx"
 import AssignedTasks from "../../components/widgets/AssignedTasks/AssignedTasks.jsx"
 import BookmarkList from "../../components/widgets/BookmarkList/BookmarkList.jsx"
 import ChatRooms from "../../components/widgets/ChatRooms/ChatRooms.jsx"
@@ -21,11 +22,14 @@ import {
   initialMentions,
   initialProjects,
   initialTasks,
+  nextWork,
   overviewMenus,
   placeholderCopy,
   projectTones,
+  dueSoonTasks,
 } from "../../data/dashboard.js"
-import { formatKoreanDate, getGreeting } from "../../utils/date.js"
+import { duePhrase, nextClock } from "../../utils/brief.js"
+import { formatKoreanDate, formatKoreanDateShort, getGreeting } from "../../utils/date.js"
 import { matchQuery } from "../../utils/search.js"
 import styles from "./Dashboard.module.css"
 
@@ -198,7 +202,9 @@ export default function Dashboard() {
     content = <MentionFeed items={mentions} emptyLabel={emptyText("언급이 없습니다.")} />
   } else {
     content = (
-      <div className={styles.board}>
+      <>
+        <StatusBar />
+        <div className={styles.board}>
         <div className={styles.left}>
           {firstProject ? (
             <ProjectTasks
@@ -257,6 +263,7 @@ export default function Dashboard() {
           />
         </div>
       </div>
+      </>
     )
   }
 
@@ -275,6 +282,10 @@ export default function Dashboard() {
             name={currentUser.name}
             greeting={getGreeting(today)}
             dateLabel={formatKoreanDate(today)}
+            shortDate={formatKoreanDateShort(today)}
+            dueText={duePhrase(dueSoonTasks)}
+            nextTitle={nextWork.title}
+            nextWhen={nextClock(nextWork.when)}
             board={board}
             onBoardChange={setBoard}
             query={query}

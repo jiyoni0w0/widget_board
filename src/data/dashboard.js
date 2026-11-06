@@ -212,3 +212,46 @@ export const initialUpdates = [
   { id: "u2", text: "디자인 싱크 일정이 추가됨", time: "어제" },
   { id: "u3", text: "김민준님이 멘션함", time: "어제" },
 ]
+
+export const dueSoonTasks = [
+  { id: "d1", title: "인터뷰 질문지 확정", due: "내일", project: "전략컨설팅 과제" },
+  { id: "d2", title: "위젯 카드 시안 정리", due: "11월 8일", project: "프로덕트 디자인" },
+]
+
+export const nextWork = {
+  title: "디자인 싱크 자료 정리",
+  when: "오늘 14:00",
+  detail: "회의 전에 시안 링크를 붙입니다",
+}
+
+export const initialNotices = [
+  { id: "n1", title: "11월 정기 보안 점검 안내 — 11.07(토) 02:00–06:00 사내 시스템 접속 제한", tag: "필수", time: "오늘" },
+  { id: "n2", title: "연말 휴무 일정 초안", tag: "공지", time: "어제" },
+  { id: "n3", title: "위젯보드 파일럿 참여 모집", tag: "공지", time: "11월 4일" },
+]
+
+export const leaveBalance = "8.5일"
+
+// shortcut: 근무 시간은 화면용 고정값, 출퇴근이 연결되면 교체
+export const attendanceToday = {
+  status: "근무 중",
+  clockIn: "09:02",
+  clockOut: "—",
+  worked: "1h 14m",
+}
+
+export const initialTodayTodos = [
+  { id: "td1", title: "인터뷰 질문지 확정", done: false },
+  { id: "td2", title: "디자인 싱크 자료 정리", done: false },
+  { id: "td3", title: "주간 리스크 메모", done: false },
+]
+
+export const todayMeetings = [
+  { id: "mt1", time: "14:00", title: "디자인 싱크", place: "온라인" },
+  { id: "mt2", time: "16:30", title: "전략 과제 스탠드업", place: "회의실 B" },
+]
+
+export const initialApprovals = [
+  { id: "ap1", title: "외근 신청 · 11/7", who: "김민준", status: "대기" },
+  { id: "ap2", title: "출장 경비", who: "박서연", status: "진행" },
+]

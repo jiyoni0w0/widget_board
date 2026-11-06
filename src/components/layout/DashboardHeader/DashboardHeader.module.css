@@ -24,6 +24,11 @@
   font-size: 14px;
 }
 
+.lead strong {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
 .tabs {
   display: inline-flex;
   gap: 4px;

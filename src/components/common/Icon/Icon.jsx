@@ -135,6 +135,18 @@ const paths = {
       <path d="m13 7 4 4" />
     </>
   ),
+  pin: (
+    <>
+      <path d="M9 4.5h6l-1 6 2 2v1.5H8V12.5l2-2-1-6z" />
+      <path d="M12 14v6" />
+    </>
+  ),
+  clock: (
+    <>
+      <circle cx="12" cy="12" r="7.5" />
+      <path d="M12 8v4.5l3 2" />
+    </>
+  ),
   dashboard: (
     <>
       <rect x="4" y="4" width="7" height="7" rx="1.6" />

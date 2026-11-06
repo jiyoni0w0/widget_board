@@ -8,6 +8,10 @@ export default function DashboardHeader({
   name,
   greeting,
   dateLabel,
+  shortDate,
+  dueText,
+  nextTitle,
+  nextWhen,
   board,
   onBoardChange,
   query,
@@ -22,7 +26,9 @@ export default function DashboardHeader({
           <h1 className={styles.hello}>
             {name}님, {greeting}
           </h1>
-          <p className={styles.lead}>프로젝트와 업무를 한 화면에서 살펴보세요.</p>
+          <p className={styles.lead}>
+            {shortDate} · {dueText}, 다음 업무는 <strong>{nextTitle}</strong>({nextWhen})예요
+          </p>
           <div className={styles.tabs} role="tablist" aria-label="보드 종류">
             <button
               type="button"
