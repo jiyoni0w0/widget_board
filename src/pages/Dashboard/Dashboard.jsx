@@ -1,18 +1,18 @@
 import { useCallback, useEffect, useRef, useState } from "react"
-import Button from "../../components/common/Button/Button.jsx"
-import Icon from "../../components/common/Icon/Icon.jsx"
-import Input from "../../components/common/Input/Input.jsx"
-import Modal from "../../components/common/Modal/Modal.jsx"
-import WidgetBox from "../../components/common/WidgetBox/WidgetBox.jsx"
-import DashboardHeader from "../../components/layout/DashboardHeader/DashboardHeader.jsx"
-import Sidebar from "../../components/layout/Sidebar/Sidebar.jsx"
-import StatusBar from "../../components/layout/StatusBar/StatusBar.jsx"
-import AssignedTasks from "../../components/widgets/AssignedTasks/AssignedTasks.jsx"
-import BookmarkList from "../../components/widgets/BookmarkList/BookmarkList.jsx"
-import ChatRooms from "../../components/widgets/ChatRooms/ChatRooms.jsx"
-import MentionFeed from "../../components/widgets/MentionFeed/MentionFeed.jsx"
-import ProjectTasks from "../../components/widgets/ProjectTasks/ProjectTasks.jsx"
-import ScheduleCalendar from "../../components/widgets/ScheduleCalendar/ScheduleCalendar.jsx"
+import Button from "../../components/Button/Button.jsx"
+import Icon from "../../components/Icon/Icon.jsx"
+import Input from "../../components/Input/Input.jsx"
+import Modal from "../../components/Modal/Modal.jsx"
+import WidgetBox from "../../components/WidgetBox/WidgetBox.jsx"
+import DashboardHeader from "./layout/DashboardHeader/DashboardHeader.jsx"
+import Sidebar from "../../layouts/Sidebar/Sidebar.jsx"
+import StatusBar from "./layout/StatusBar/StatusBar.jsx"
+import AssignedTasks from "./widgets/AssignedTasks/AssignedTasks.jsx"
+import BookmarkList from "./widgets/BookmarkList/BookmarkList.jsx"
+import ChatRooms from "./widgets/ChatRooms/ChatRooms.jsx"
+import MentionFeed from "./widgets/MentionFeed/MentionFeed.jsx"
+import ProjectTasks from "./widgets/ProjectTasks/ProjectTasks.jsx"
+import ScheduleCalendar from "./widgets/ScheduleCalendar/ScheduleCalendar.jsx"
 import {
   currentUser,
   initialAssigned,
@@ -27,11 +27,37 @@ import {
   placeholderCopy,
   projectTones,
   dueSoonTasks,
-} from "../../data/dashboard.js"
+} from "./data.js"
 import { duePhrase, nextClock } from "../../utils/brief.js"
 import { formatKoreanDate, formatKoreanDateShort, getGreeting } from "../../utils/date.js"
 import { matchQuery } from "../../utils/search.js"
 import styles from "./Dashboard.module.css"
+
+function Text({ text }) {
+  return <div>{text}</div>
+}
+
+function Toolbar() {
+  const { addWidget } = useGridStack()
+  return (
+    <button
+      type="button"
+      onClick={() =>
+        addWidget?.({
+          id: "new-" + Date.now(),
+          w: 2,
+          h: 2,
+          x: 0,
+          y: 0,
+          component: "Text",
+          props: { text: "Added" },
+        })
+      }
+    >
+      Add
+    </button>
+  )
+}
 
 export default function Dashboard() {
   const [today] = useState(() => new Date())
@@ -268,90 +294,94 @@ export default function Dashboard() {
   }
 
   return (
-    <div className={styles.shell}>
-      <Sidebar
-        projects={projects}
-        activeId={activeMenu}
-        onSelect={setActiveMenu}
-        onCreate={openCreate}
-        createButtonRef={createButtonRef}
-      />
-      <main className={styles.main}>
-        <div className={styles.content}>
-          <DashboardHeader
-            name={currentUser.name}
-            greeting={getGreeting(today)}
-            dateLabel={formatKoreanDate(today)}
-            shortDate={formatKoreanDateShort(today)}
-            dueText={duePhrase(dueSoonTasks)}
-            nextTitle={nextWork.title}
-            nextWhen={nextClock(nextWork.when)}
-            board={board}
-            onBoardChange={setBoard}
-            query={query}
-            onQueryChange={setQuery}
-            shortcut={shortcut}
-            onShortcut={handleShortcut}
-          />
-          {content}
-        </div>
-      </main>
-
-      <Modal
-        open={modalOpen}
-        title="새 프로젝트"
-        description={
-          board === "team"
-            ? "팀 보드에 공개 프로젝트를 추가합니다."
-            : "내 보드에 프로젝트를 추가합니다."
-        }
-        onClose={closeModal}
-      >
-        <form className={styles.form} onSubmit={handleCreate}>
-          <Input
-            label="프로젝트 이름"
-            value={draft.name}
-            onChange={(event) => {
-              setDraft((current) => ({ ...current, name: event.target.value }))
-              if (nameError) setNameError("")
-            }}
-            placeholder="예: 위젯 라이브러리"
-            error={nameError}
-            autoFocus
-          />
-          <Input
-            label="설명"
-            multiline
-            value={draft.description}
-            onChange={(event) => setDraft((current) => ({ ...current, description: event.target.value }))}
-            placeholder="어떤 일을 모으는 프로젝트인지 적어 주세요"
-          />
-          <fieldset className={styles.tones}>
-            <legend className={styles.legend}>색상</legend>
-            <div className={styles.swatches}>
-              {projectTones.map((tone) => (
-                <label key={tone.id} className={styles.tone}>
-                  <input
-                    type="radio"
-                    name="tone"
-                    value={tone.id}
-                    checked={draft.tone === tone.id}
-                    onChange={() => setDraft((current) => ({ ...current, tone: tone.id }))}
-                  />
-                  <span className={styles.swatch} data-tone={tone.id} />
-                  {tone.label}
-                </label>
-              ))}
-            </div>
-          </fieldset>
-          <div className={styles.footer}>
-            <Button variant="secondary" onClick={closeModal}>
-              취소
-            </Button>
-            <Button type="submit">만들기</Button>
+    <div>
+      
+      <div className={styles.shell}>
+        <Sidebar
+          projects={projects}
+          activeId={activeMenu}
+          onSelect={setActiveMenu}
+          onCreate={openCreate}
+          createButtonRef={createButtonRef}
+        />
+        <main className={styles.main}>
+          <div className={styles.content}>
+            <DashboardHeader
+              name={currentUser.name}
+              greeting={getGreeting(today)}
+              dateLabel={formatKoreanDate(today)}
+              shortDate={formatKoreanDateShort(today)}
+              dueText={duePhrase(dueSoonTasks)}
+              nextTitle={nextWork.title}
+              nextWhen={nextClock(nextWork.when)}
+              board={board}
+              onBoardChange={setBoard}
+              query={query}
+              onQueryChange={setQuery}
+              shortcut={shortcut}
+              onShortcut={handleShortcut}
+            />
+            {content}
           </div>
-        </form>
-      </Modal>
+        </main>
+
+        <Modal
+          open={modalOpen}
+          title="새 프로젝트"
+          description={
+            board === "team"
+              ? "팀 보드에 공개 프로젝트를 추가합니다."
+              : "내 보드에 프로젝트를 추가합니다."
+          }
+          onClose={closeModal}
+        >
+          <form className={styles.form} onSubmit={handleCreate}>
+            <Input
+              label="프로젝트 이름"
+              value={draft.name}
+              onChange={(event) => {
+                setDraft((current) => ({ ...current, name: event.target.value }))
+                if (nameError) setNameError("")
+              }}
+              placeholder="예: 위젯 라이브러리"
+              error={nameError}
+              autoFocus
+            />
+            <Input
+              label="설명"
+              multiline
+              value={draft.description}
+              onChange={(event) => setDraft((current) => ({ ...current, description: event.target.value }))}
+              placeholder="어떤 일을 모으는 프로젝트인지 적어 주세요"
+            />
+            <fieldset className={styles.tones}>
+              <legend className={styles.legend}>색상</legend>
+              <div className={styles.swatches}>
+                {projectTones.map((tone) => (
+                  <label key={tone.id} className={styles.tone}>
+                    <input
+                      type="radio"
+                      name="tone"
+                      value={tone.id}
+                      checked={draft.tone === tone.id}
+                      onChange={() => setDraft((current) => ({ ...current, tone: tone.id }))}
+                    />
+                    <span className={styles.swatch} data-tone={tone.id} />
+                    {tone.label}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+            <div className={styles.footer}>
+              <Button variant="secondary" onClick={closeModal}>
+                취소
+              </Button>
+              <Button type="submit">만들기</Button>
+            </div>
+          </form>
+        </Modal>
+      </div>
     </div>
+
   )
 }
