@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react"
+import { GridStack, GridStackItem } from "gridstack/dist/react"
+import "gridstack/dist/gridstack.css"
 import Button from "../../components/Button/Button.jsx"
 import Icon from "../../components/Icon/Icon.jsx"
 import Input from "../../components/Input/Input.jsx"
@@ -33,29 +35,117 @@ import { formatKoreanDate, formatKoreanDateShort, getGreeting } from "../../util
 import { matchQuery } from "../../utils/search.js"
 import styles from "./Dashboard.module.css"
 
-function Text({ text }) {
-  return <div>{text}</div>
+const gridOptions = {
+  margin: 8,
+  cellHeight: 60,
+  handle: ".widget-drag-handle",
+  columnOpts: {
+    breakpoints: [{ w: 800, c: 1, layout: "list" }],
+  },
 }
 
-function Toolbar() {
-  const { addWidget } = useGridStack()
+const slots = {
+  projectA: { x: 0, y: 0, w: 4, h: 6, minH: 2 },
+  projectB: { x: 4, y: 0, w: 4, h: 6, minH: 2 },
+  bookmarks: { x: 8, y: 0, w: 4, h: 6, minH: 2 },
+  mentions: { x: 0, y: 6, w: 4, h: 7, minH: 2 },
+  calendar: { x: 4, y: 6, w: 4, h: 7, minH: 2 },
+  chats: { x: 8, y: 6, w: 4, h: 11, minH: 2 },
+  assigned: { x: 0, y: 13, w: 8, h: 4, minH: 2 },
+}
+
+function DashboardBoard({
+  firstProject,
+  secondProject,
+  tasksFor,
+  assignedTasks,
+  emptyText,
+  mentions,
+  events,
+  bookmarks,
+  chats,
+  activeChat,
+  onOpenProject,
+  onOpenCreate,
+  onOpenMenu,
+  onToggleAssigned,
+  onSelectChat,
+}) {
   return (
-    <button
-      type="button"
-      onClick={() =>
-        addWidget?.({
-          id: "new-" + Date.now(),
-          w: 2,
-          h: 2,
-          x: 0,
-          y: 0,
-          component: "Text",
-          props: { text: "Added" },
-        })
-      }
-    >
-      Add
-    </button>
+    <GridStack className={styles.grid} options={gridOptions}>
+      <GridStackItem id="project-a" options={slots.projectA}>
+        {firstProject ? (
+          <ProjectTasks
+            project={firstProject}
+            tasks={tasksFor(firstProject)}
+            emptyLabel={emptyText("아직 등록된 업무가 없습니다.")}
+            onOpen={() => onOpenProject(firstProject.id)}
+            dragHandle
+          />
+        ) : (
+          <WidgetBox title="내 프로젝트" description="이 보드에 표시할 프로젝트가 없습니다." dragHandle>
+            <Button onClick={onOpenCreate}>새 프로젝트</Button>
+          </WidgetBox>
+        )}
+      </GridStackItem>
+      <GridStackItem id="project-b" options={slots.projectB}>
+        {secondProject ? (
+          <ProjectTasks
+            project={secondProject}
+            tasks={tasksFor(secondProject)}
+            emptyLabel={emptyText("아직 등록된 업무가 없습니다.")}
+            onOpen={() => onOpenProject(secondProject.id)}
+            dragHandle
+          />
+        ) : (
+          <WidgetBox title="새 프로젝트" description="카드를 하나 더 채울 수 있어요." dragHandle>
+            <Button onClick={onOpenCreate}>프로젝트 추가</Button>
+          </WidgetBox>
+        )}
+      </GridStackItem>
+      <GridStackItem id="mentions" options={slots.mentions}>
+        <MentionFeed
+          items={mentions}
+          emptyLabel={emptyText("언급이 없습니다.")}
+          onOpen={() => onOpenMenu("mentions")}
+          dragHandle
+        />
+      </GridStackItem>
+      <GridStackItem id="calendar" options={slots.calendar}>
+        <ScheduleCalendar
+          events={events}
+          emptyLabel={emptyText("등록된 일정이 없습니다.")}
+          onOpen={() => onOpenMenu("calendar")}
+          dragHandle
+        />
+      </GridStackItem>
+      <GridStackItem id="assigned" options={slots.assigned}>
+        <AssignedTasks
+          tasks={assignedTasks}
+          emptyLabel={emptyText("담당한 업무가 없습니다.")}
+          onToggle={onToggleAssigned}
+          onOpen={() => onOpenMenu("tasks")}
+          dragHandle
+        />
+      </GridStackItem>
+      <GridStackItem id="bookmarks" options={slots.bookmarks}>
+        <BookmarkList
+          items={bookmarks}
+          emptyLabel={emptyText("저장한 북마크가 없습니다.")}
+          onOpen={() => onOpenMenu("bookmarks")}
+          dragHandle
+        />
+      </GridStackItem>
+      <GridStackItem id="chats" options={slots.chats}>
+        <ChatRooms
+          items={chats}
+          emptyLabel={emptyText("대화방이 없습니다.")}
+          activeId={activeChat}
+          onSelect={onSelectChat}
+          dragHandle
+        />
+      </GridStackItem>
+    </GridStack>
   )
 }
 
@@ -230,65 +320,23 @@ export default function Dashboard() {
     content = (
       <>
         <StatusBar />
-        <div className={styles.board}>
-        <div className={styles.left}>
-          {firstProject ? (
-            <ProjectTasks
-              project={firstProject}
-              tasks={tasksFor(firstProject)}
-              emptyLabel={emptyText("아직 등록된 업무가 없습니다.")}
-              onOpen={() => setActiveMenu(firstProject.id)}
-            />
-          ) : (
-            <WidgetBox title="내 프로젝트" description="이 보드에 표시할 프로젝트가 없습니다.">
-              <Button onClick={openCreate}>새 프로젝트</Button>
-            </WidgetBox>
-          )}
-          {secondProject ? (
-            <ProjectTasks
-              project={secondProject}
-              tasks={tasksFor(secondProject)}
-              emptyLabel={emptyText("아직 등록된 업무가 없습니다.")}
-              onOpen={() => setActiveMenu(secondProject.id)}
-            />
-          ) : (
-            <WidgetBox title="새 프로젝트" description="카드를 하나 더 채울 수 있어요.">
-              <Button onClick={openCreate}>프로젝트 추가</Button>
-            </WidgetBox>
-          )}
-          <MentionFeed
-            items={mentions}
-            emptyLabel={emptyText("언급이 없습니다.")}
-            onOpen={() => setActiveMenu("mentions")}
-          />
-          <ScheduleCalendar
-            events={events}
-            emptyLabel={emptyText("등록된 일정이 없습니다.")}
-            onOpen={() => setActiveMenu("calendar")}
-          />
-          <div className={styles.wide}>
-            <AssignedTasks
-              tasks={assignedFor()}
-              emptyLabel={emptyText("담당한 업무가 없습니다.")}
-              onToggle={toggleAssigned}
-              onOpen={() => setActiveMenu("tasks")}
-            />
-          </div>
-        </div>
-        <div className={styles.right}>
-          <BookmarkList
-            items={bookmarks}
-            emptyLabel={emptyText("저장한 북마크가 없습니다.")}
-            onOpen={() => setActiveMenu("bookmarks")}
-          />
-          <ChatRooms
-            items={visibleChats}
-            emptyLabel={emptyText("대화방이 없습니다.")}
-            activeId={activeChat}
-            onSelect={selectChat}
-          />
-        </div>
-      </div>
+        <DashboardBoard
+          firstProject={firstProject}
+          secondProject={secondProject}
+          tasksFor={tasksFor}
+          assignedTasks={assignedFor()}
+          emptyText={emptyText}
+          mentions={mentions}
+          events={events}
+          bookmarks={bookmarks}
+          chats={visibleChats}
+          activeChat={activeChat}
+          onOpenProject={setActiveMenu}
+          onOpenCreate={openCreate}
+          onOpenMenu={setActiveMenu}
+          onToggleAssigned={toggleAssigned}
+          onSelectChat={selectChat}
+        />
       </>
     )
   }

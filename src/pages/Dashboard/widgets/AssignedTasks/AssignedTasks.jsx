@@ -12,10 +12,11 @@ const statusTone = {
   완료: "mint",
 }
 
-export default function AssignedTasks({ tasks, emptyLabel, onToggle, onOpen, className }) {
+export default function AssignedTasks({ tasks, emptyLabel, onToggle, onOpen, className, dragHandle }) {
   return (
     <WidgetBox
       className={className}
+      dragHandle={dragHandle}
       title="내가 담당중인 업무"
       action={
         onOpen ? (

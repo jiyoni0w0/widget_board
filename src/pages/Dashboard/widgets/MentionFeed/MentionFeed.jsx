@@ -3,10 +3,11 @@ import Button from "../../../../components/Button/Button.jsx"
 import WidgetBox from "../../../../components/WidgetBox/WidgetBox.jsx"
 import styles from "./MentionFeed.module.css"
 
-export default function MentionFeed({ items, emptyLabel, onOpen, className }) {
+export default function MentionFeed({ items, emptyLabel, onOpen, className, dragHandle }) {
   return (
     <WidgetBox
       className={className}
+      dragHandle={dragHandle}
       title="나를 언급"
       action={
         onOpen ? (

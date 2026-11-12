@@ -1,10 +1,10 @@
 import { cx } from "../../utils/cx.js"
 import styles from "./WidgetBox.module.css"
 
-export default function WidgetBox({ title, description, action, marker, children, className }) {
+export default function WidgetBox({ title, description, action, marker, children, className, dragHandle = false }) {
   return (
     <section className={cx(styles.box, className)}>
-      <header className={styles.head}>
+      <header className={cx(styles.head, dragHandle && styles.handle, dragHandle && "widget-drag-handle")}>
         <div className={styles.titleBlock}>
           <div className={styles.titleRow}>
             {marker ? <span className={styles.marker} data-tone={marker} aria-hidden="true" /> : null}

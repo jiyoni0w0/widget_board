@@ -17,6 +17,11 @@
   margin-bottom: 10px;
 }
 
+.handle {
+  cursor: grab;
+  touch-action: none;
+}
+
 .titleBlock {
   min-width: 0;
 }

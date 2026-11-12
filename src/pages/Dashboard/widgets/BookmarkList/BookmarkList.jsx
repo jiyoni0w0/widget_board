@@ -4,10 +4,11 @@ import Icon from "../../../../components/Icon/Icon.jsx"
 import WidgetBox from "../../../../components/WidgetBox/WidgetBox.jsx"
 import styles from "./BookmarkList.module.css"
 
-export default function BookmarkList({ items, emptyLabel, onOpen, className }) {
+export default function BookmarkList({ items, emptyLabel, onOpen, className, dragHandle }) {
   return (
     <WidgetBox
       className={className}
+      dragHandle={dragHandle}
       title="북마크"
       action={
         onOpen ? (

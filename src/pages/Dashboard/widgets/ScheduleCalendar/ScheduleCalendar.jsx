@@ -8,7 +8,7 @@ import styles from "./ScheduleCalendar.module.css"
 
 const weekdays = ["일", "월", "화", "수", "목", "금", "토"]
 
-export default function ScheduleCalendar({ events, emptyLabel, onOpen, className }) {
+export default function ScheduleCalendar({ events, emptyLabel, onOpen, className, dragHandle }) {
   const [cursor, setCursor] = useState(() => {
     const now = new Date()
     return new Date(now.getFullYear(), now.getMonth(), 1)
@@ -43,6 +43,7 @@ export default function ScheduleCalendar({ events, emptyLabel, onOpen, className
   return (
     <WidgetBox
       className={className}
+      dragHandle={dragHandle}
       title="일정"
       action={
         onOpen ? (

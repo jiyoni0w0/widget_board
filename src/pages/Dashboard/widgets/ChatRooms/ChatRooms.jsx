@@ -2,9 +2,9 @@ import Avatar from "../../../../components/Avatar/Avatar.jsx"
 import WidgetBox from "../../../../components/WidgetBox/WidgetBox.jsx"
 import styles from "./ChatRooms.module.css"
 
-export default function ChatRooms({ items, emptyLabel, activeId, onSelect, className }) {
+export default function ChatRooms({ items, emptyLabel, activeId, onSelect, className, dragHandle }) {
   return (
-    <WidgetBox className={className} title="채팅 방">
+    <WidgetBox className={className} dragHandle={dragHandle} title="채팅 방">
       {items.length === 0 ? (
         <p className="empty-copy">{emptyLabel}</p>
       ) : (

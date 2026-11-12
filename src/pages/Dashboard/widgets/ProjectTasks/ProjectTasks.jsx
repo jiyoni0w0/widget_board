@@ -11,10 +11,11 @@ const statusTone = {
   완료: "mint",
 }
 
-export default function ProjectTasks({ project, tasks, emptyLabel, description, className, onOpen }) {
+export default function ProjectTasks({ project, tasks, emptyLabel, description, className, onOpen, dragHandle }) {
   return (
     <WidgetBox
       className={className}
+      dragHandle={dragHandle}
       title={project.name}
       marker={project.tone}
       description={description}
